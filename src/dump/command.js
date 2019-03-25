@@ -42,18 +42,13 @@ export default async function (options) {
 
   await dump(configFile, new ItemsRepo(loader.entitiesRepo), quiet);
 
-  let watchSpinner;
-
   if (watch) {
-    const unwatch = loader.watch(
-      () => {
-        watchSpinner = ora('Detected change in content, loading new data').start();
-      },
-      () => {
-        watchSpinner.succeed();
-        return dump(configFile, new ItemsRepo(loader.entitiesRepo), quiet);
-      },
-    );
+    const unwatch = loader.watch(async (promise) => {
+      const watchSpinner = ora('Detected change in content, loading new data').start();
+      await promise;
+      watchSpinner.succeed();
+      return dump(configFile, new ItemsRepo(loader.entitiesRepo), quiet);
+    });
 
     process.on('SIGINT', () => {
       unwatch();

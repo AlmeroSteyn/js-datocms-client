@@ -24,7 +24,7 @@ export default class Loader {
       });
   }
 
-  async watch(notifier, done) {
+  async watch(notifier) {
     const site = await this.client.site.find();
 
     const pusher = new Pusher(
@@ -48,10 +48,8 @@ export default class Loader {
     });
 
     const addEventListener = (eventName, entitiesRepoRefresher) => {
-      watcher.bind(eventName, async (data) => {
-        notifier();
-        await entitiesRepoRefresher(data);
-        done();
+      watcher.bind(eventName, (data) => {
+        notifier(entitiesRepoRefresher(data));
       });
     };
 
