@@ -28,12 +28,16 @@ export default class EntitiesRepo {
 
   addDestroyListener(cb) {
     this.destroyListeners.push(cb);
-    return () => this.destroyListeners = this.destroyListeners.filter(x => x !== cb);
+    return () => {
+      this.destroyListeners = this.destroyListeners.filter(x => x !== cb);
+    };
   }
 
   addUpsertListener(cb) {
     this.upsertListeners.push(cb);
-    return () => this.upsertListeners = this.upsertListeners.filter(x => x !== cb);
+    return () => {
+      this.upsertListeners = this.upsertListeners.filter(x => x !== cb);
+    };
   }
 
   upsertEntities(...payloads) {
@@ -71,6 +75,10 @@ export default class EntitiesRepo {
 
     this.entitiesRepo.destroyEntities('item', itemIds);
     this.entitiesRepo.destroyEntities('item_type', [id]);
+  }
+
+  get site() {
+    return this.findEntitiesOfType('site')[0];
   }
 
   findEntitiesOfType(type) {

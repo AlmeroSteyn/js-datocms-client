@@ -7,7 +7,7 @@ import detectSsg from './detectSsg';
 import dump from './dump';
 import requireToken from './requireToken';
 import Loader from '../local/Loader';
-import ItemsRepo from './ItemsRepo';
+import ItemsRepo from '../local/ItemsRepo';
 
 export default async function (options) {
   const configFile = path.resolve(options['--config'] || 'dato.config.js');

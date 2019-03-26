@@ -56,7 +56,7 @@ export default class Loader {
     const itemVersion = this.previewMode ? 'latest' : 'published';
     const previewMode = this.previewMode ? 'preview_mode' : 'published_mode';
 
-    addEventListener(`site:upsert`, async () => {
+    addEventListener('site:upsert', async () => {
       const payloads = await Promise.all([
         this.client.get('/site', { include: 'item_types,item_types.fields' }),
         this.client.items.all(
@@ -80,7 +80,7 @@ export default class Loader {
       this.entitiesRepo.upsertEntities(payload);
     });
 
-    watcher.bind(`item:${previewMode}:destroy`, ({ ids }) => {
+    addEventListener(`item:${previewMode}:destroy`, ({ ids }) => {
       this.entitiesRepo.destroyEntities('item', ids);
     });
 
@@ -93,7 +93,7 @@ export default class Loader {
       this.entitiesRepo.upsertEntities(payload);
     });
 
-    watcher.bind('upload:destroy', ({ ids }) => {
+    addEventListener('upload:destroy', ({ ids }) => {
       this.entitiesRepo.destroyEntities('upload', ids);
     });
 

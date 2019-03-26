@@ -12,6 +12,7 @@ import dump from '../../src/dump/dump';
 
 import SiteClient from '../../src/site/SiteClient';
 import Loader from '../../src/local/Loader';
+import ItemsRepo from '../../src/local/ItemsRepo';
 import uploadFile from '../../src/upload/uploadFile';
 import uploadImage from '../../src/upload/uploadImage';
 
@@ -161,7 +162,7 @@ describe('CLI tool', () => {
 
     await dump(
       configFile,
-      loader.itemsRepo,
+      new ItemsRepo(loader.entitiesRepo),
       true,
       dirName,
     );

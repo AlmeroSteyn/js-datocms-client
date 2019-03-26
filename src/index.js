@@ -16,5 +16,7 @@ export { default as Site } from './local/Site';
 
 export { default as seoTagsBuilder } from './utils/seoTagsBuilder';
 export { default as faviconTagsBuilder } from './utils/faviconTagsBuilder';
+export { default as localizedRead } from './utils/localizedRead';
+export { default as buildFileUrl } from './utils/buildFileUrl';
 
 export { default as i18n } from './utils/i18n';
